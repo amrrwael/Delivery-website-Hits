@@ -583,13 +583,20 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
+
     function handleDishImageClick(dish) {
         fetchDishDetails(dish.id)
-            .then(dishDetails => {
-                console.log('Dish Details:', dishDetails);
-                openPopup(dish, dishDetails);
-            });
+        window.location.href = `/html/dish-details.html?dish_id=${dish.id}`;
     }
+    
+
+    // function handleDishImageClick(dish) {
+    //     fetchDishDetails(dish.id)
+    //         .then(dishDetails => {
+    //             console.log('Dish Details:', dishDetails);
+    //             openPopup(dish, dishDetails);
+    //         });
+    // }
 
     function openPopup(dish) {
         let vegetarianStatus = dish.vegetarian ? 'Vegetarian' : 'NOT Vegetarian';
@@ -622,5 +629,6 @@ document.addEventListener('DOMContentLoaded', function () {
     
 
     fetchDataFromURL();
+    
      
 });

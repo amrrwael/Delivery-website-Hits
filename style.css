@@ -15,7 +15,7 @@ img{
 }
 
 .header{
-    font-family: 'Anta';
+    font-family: 'Anta','Courier New','monospace';
     align-items: center;
     display: flex;
     justify-content: space-between;
@@ -369,7 +369,6 @@ button.page-button.active {
   color: #000000;
   cursor: pointer;
   display: inline-block;
-  font-family: Clarkson,Helvetica,sans-serif;
   font-size: 16px;
   font-weight: 500;
   letter-spacing: 0;
@@ -534,19 +533,19 @@ button.page-button.active {
   color: #333;
   margin-bottom: 10px;
   font-size: 24px;
-  font-family: 'Montserrat';
+  font-family: 'Montserrat','Courier New','monospace';
   }
 
 
 .pop-category {
   font-weight: bold;
-  font-family: 'Merriweather';
+  font-family: 'Merriweather','Courier New','monospace';
   }
 
 
 
 .pop-vegetarian {
-  font-family: 'Montserrat';
+  font-family: 'Montserrat','Courier New','monospace';
   display: flex;
   justify-content: space-around;
   color: #4caf50;
@@ -642,7 +641,7 @@ button.page-button.active {
 }
 
 .lDiv{
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family: 'Trebuchet MS', Arial, sans-serif;
 }
 
 .tchef{

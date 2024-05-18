@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let cartIcon = document.getElementById('cartIcon');
     const token = localStorage.getItem('token');
 
+    
     function checkLoginStatus() {
         let token = localStorage.getItem('token');
         let isLoggedIn = token !== null;
@@ -31,28 +32,43 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     checkLoginStatus();
-
-
-
     fetchAndDisplayCart(token);
 
-    document.getElementById('checkoutBtn').addEventListener('click', function () {
-        openOrderModal();
-    });
-
-    document.querySelector('.close').addEventListener('click', function () {
-        closeModal();
-    });
-
+    document.getElementById('checkoutBtn').addEventListener('click', openOrderModal);
+    document.querySelector('.close').addEventListener('click', closeModal);
     document.getElementById('orderForm').addEventListener('submit', function (event) {
         createOrder(token, event);
     });
-
     document.getElementById('goToMenuBtn').addEventListener('click', function() {
-        // Redirect the user to the menu page
         window.location.href = '/index.html';
     });
-    
+
+    // Fetch the address when the page loads
+    fetchAddress();
+
+    function fetchAddress() {
+        fetch(`https://food-delivery.int.kreosoft.space/api/account/profile`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Assuming the address is in a field named 'address'
+            const address = data.address;
+            // Set the input field value
+            const addressInput = document.getElementById('deliveryAddress');
+            addressInput.value = address;
+        })
+        .catch(error => {
+            console.error('There has been a problem with your fetch operation:', error);
+        });
+    }
 });
 
 function fetchAndDisplayCart(token) {
@@ -71,16 +87,13 @@ function fetchAndDisplayCart(token) {
         console.log("DATAAAA", data)
         if (data.length === 0) {
             document.getElementById('emptyCartMessage').style.display = 'block';
-            displayCartItems(data, token);
         } else {
             document.getElementById('emptyCartMessage').style.display = 'none';
             displayCartItems(data, token);
-            
         }
     })
     .catch(error => console.error("Error fetching or displaying cart data:", error));
 }
-
 
 function displayCartItems(data, token) {
     const cartContainer = document.getElementById("cartItems");
@@ -124,10 +137,6 @@ function increaseItemQuantity(itemId, token) {
     fetch(`https://food-delivery.int.kreosoft.space/api/basket/dish/${itemId}`, requestOptions)
     .then(response => {
         if (!response.ok) throw new Error(`Network response was not ok, status: ${response.status}`);
-        
-    })
-    .then(data => {
-        console.log('Item quantity increased', data);
         fetchAndDisplayCart(token);
     })
     .catch(error => console.error("Error increasing item quantity:", error));
@@ -145,10 +154,6 @@ function decreaseItemQuantity(itemId, token) {
     fetch(`https://food-delivery.int.kreosoft.space/api/basket/dish/${itemId}?increase=true`, requestOptions)
     .then(response => {
         if (!response.ok) throw new Error(`Network response was not ok, status: ${response.status}`);
-        
-    })
-    .then(data => {
-        console.log('Item quantity decreased', data);
         fetchAndDisplayCart(token);
     })
     .catch(error => console.error("Error decreasing item quantity:", error));
@@ -166,19 +171,14 @@ function removeItemFromCart(itemId, token) {
     fetch(`https://food-delivery.int.kreosoft.space/api/basket/dish/${itemId}?increase=false`, requestOptions)
     .then(response => {
         if (!response.ok) throw new Error(`Network response was not ok, status: ${response.status}`);
-        
-    })
-    .then(data => {
-        console.log('Item removed', data);
         fetchAndDisplayCart(token);
     })
     .catch(error => console.error("Error removing item from cart:", error));
 }
 
 function openOrderModal() {
-    const cartItems = document.querySelectorAll(".cart-item"); // Get all cart items
+    const cartItems = document.querySelectorAll(".cart-item");
     if (cartItems.length === 0) {
-        // If cart is empty, alert the user and return without opening the modal
         alert('Your cart is empty. Please add items before proceeding to checkout.');
         return;
     }
@@ -186,10 +186,8 @@ function openOrderModal() {
     const modal = document.getElementById('orderModal');
     modal.style.display = 'block';
 
-    // Fetch total price
     const totalPrice = document.getElementById('cart-total-price').textContent;
 
-    // Prepare modal cart items without remove, decrease, and increase buttons
     let modalCartItemsHtml = "";
     cartItems.forEach(item => {
         const imgSrc = item.querySelector("img").src;
@@ -211,7 +209,6 @@ function openOrderModal() {
         `;
     });
 
-    // Append order details to modal content
     const orderDetails = document.getElementById('orderDetails');
     orderDetails.innerHTML = `
         <div>Cart Items:</div>
@@ -219,7 +216,6 @@ function openOrderModal() {
         <div class="popTotalPrice">Total Price: ${totalPrice}</div>
     `;
 }
-
 
 function closeModal() {
     const modal = document.getElementById('orderModal');
@@ -247,19 +243,16 @@ function createOrder(token, event) {
     fetch(`https://food-delivery.int.kreosoft.space/api/order`, requestOptions)
     .then(response => {
         if (!response.ok) throw new Error(`Network response was not ok, status: ${response.status}`);
-        
-    })
-    .then(data => {
-        console.log('Order created:', data);
         alert('Order created successfully!');
         clearCart(token);
         closeModal();
     })
     .catch(error => console.error("Error creating order:", error));
 }
+
 function clearCart(token) {
     const requestOptions = {
-        method: 'GET',
+        method: 'DELETE',  // Changed to DELETE to clear the cart properly
         headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
@@ -269,10 +262,6 @@ function clearCart(token) {
     fetch(`https://food-delivery.int.kreosoft.space/api/basket`, requestOptions)
     .then(response => {
         if (!response.ok) throw new Error(`Network response was not ok, status: ${response.status}`);
-        
-    })
-    .then(data => {
-        console.log('Cart cleared', data);
         fetchAndDisplayCart(token);
     })
     .catch(error => console.error("Error clearing cart:", error));

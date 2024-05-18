@@ -20,7 +20,7 @@ eee5e9 primary color
   
   
     .header{
-      font-family: 'Anta';
+      font-family: 'Anta','Courier New','monospace';
       align-items: center;
       display: flex;
       justify-content: space-between;
@@ -69,7 +69,6 @@ eee5e9 primary color
         color: #000000;
         cursor: pointer;
         display: inline-block;
-        font-family: Clarkson,Helvetica,sans-serif;
         font-size: 16px;
         font-weight: 500;
         letter-spacing: 0;

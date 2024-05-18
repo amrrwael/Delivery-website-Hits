@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Savor Haven</title>
+    <link rel="stylesheet" href="/css/order.css">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Anta&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/boxicons/2.0.7/css/boxicons.min.css">
+</head>
+<body>
+
+    
+    <header class="header">
+        
+        <a  class="UnderLogo" href="/index.html">
+            <h1 class="logo">Savor Haven</h1>
+        </a>
+        
+
+<div class="btn">
+
+    
+
+        <div class="icons">
+
+            <div class="profileIcon">
+                <a class="UnderProfile" href="/html/profile.html">
+    <i class='bx bx-user' id="profileIcon" style="display:none;"></i>
+                </a>
+            </div>
+
+
+            <div class="orderIcon" id="orderIcon" style="display: none;">
+                <a class="UnderOrder" href="/html/order.html">
+                    <p2>Orders</p2>
+                </a>
+            </div>
+
+            <div class="cartIcon" id="cartIcon" style="display: none;">
+                <a class="UnderCart" href="/html/cart.html">
+                    <p2>Cart</p2>
+                    
+
+                </a>
+            </div>
+
+            
+        
+        </div>
+
+        <a href="/html/login.html">
+            <button id="authButton" class="btnLogin" role="btnLogin">
+                    
+                
+                    <span class="text">LOG IN / SIGN UP</span>
+                </a>
+            </button>
+</div>
+
+</header>
+
+    <div class="navbar">
+        
+    </div>
+    
+<div class="orders-container">
+    <h2>Orders</h2>
+    <div id="ordersList" class="orders-list">
+        <div class="order-actions">
+            <span class="order-price"></span>
+            <div class="confirm-btn-wrapper"></div>
+        </div>
+        <!-- Orders will be dynamically added here -->
+    </div>
+</div>
+
+<!-- Modal for displaying order details -->
+<div id="orderModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div id="orderDetails"></div>
+        <div class="divbtn">
+        <button class ="confirmOrderBtn" id="confirmOrderBtn">Confirm Order</button>
+    </div>
+    </div>
+    </div>
+
+
+<script src="/javascript/order.js"></script>
+<script src="/javascript/logout.js"></script>
+</body>
+</html>

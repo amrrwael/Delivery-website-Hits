@@ -1,0 +1,325 @@
+*{
+    scroll-behavior: smooth;
+    
+  }
+  /* :root{
+    #B0F2B4
+    383d3b
+    eee5e9
+  } */
+   body{
+    background-color: #eee5e9;
+    padding: 0;
+    margin: 0;
+   }
+  
+    .header{
+      font-family: 'Anta';
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      margin-left: 75px;
+      margin-right: 20px;
+    }
+  
+    .icons{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+  
+  .cartIcon,
+  .orderIcon,
+  .profileIcon,
+  .UnderLogo{
+    position: relative;
+    color: #383d3b;
+    
+  }
+
+  .UnderCart,
+  .UnderOrder,
+  .UnderProfile,
+  .UnderLogo{
+    text-decoration: none;
+    
+  }
+  
+    .cartIcon span{
+      display: flex;
+      width: 20px;
+      height: 20px;
+      background-color: #383d3b;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      right: -22px;
+      
+    }
+  
+    .btn{
+        align-items: center;
+        display: flex;
+        justify-content: space-around;
+      }
+      
+      .btnLogin{
+        border: 3px solid black;
+        border-radius: 10px;
+        appearance: none;
+        background-color: #eee5e9;
+        box-sizing: border-box;
+        color: #000000;
+        cursor: pointer;
+        display: inline-block;
+        font-family: Clarkson,Helvetica,sans-serif;
+        font-size: 16px;
+        font-weight: 500;
+        letter-spacing: 0;
+        line-height: 1em;
+        margin: 0;
+        opacity: 1;
+        outline: 0;
+        padding: 1.5em 2.2em;
+        margin-left: 50px;
+        position: relative;
+        text-align: center;
+        text-decoration: none;
+        text-rendering: geometricprecision;
+        text-transform: uppercase;
+        transition: opacity 300ms cubic-bezier(.694, 0, 0.335, 1), 400ms cubic-bezier(.694, 0, 0.335, 1),color 100ms cubic-bezier(.694, 0, 0.335, 1);
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        vertical-align: baseline;
+        white-space: nowrap;
+      }
+      
+      .btnLogin:before , .btnSign:before {
+        animation:  .1s step-end forwards;
+        backface-visibility: hidden;
+        background-color: #7b5165;
+        clip-path: polygon(-1% 0, 0 0, -25% 100%, -1% 100%);
+        content: "";
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        transform: translateZ(0);
+        transition:  .5s cubic-bezier(.165, 0.84, 0.44, 1),  .5s cubic-bezier(.165, 0.84, 0.44, 1);
+        width: 100%;
+      }
+      
+      .btnLogin:hover:before , .btnSign:hover:before {
+        animation:  0s step-start forwards;
+        clip-path: polygon(0 0, 101% 0, 101% 101%, 0 101%);
+      }
+      
+      .btnLogin::after , .btnSign:after {
+        background-color: #e7dae0;
+      }
+      
+      .btnLogin span , .btnSign span {
+        z-index: 1;
+        position: relative;
+      }
+      
+.navbar {
+    background-color: #383d3b;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-around;
+  }
+  
+
+.order {
+    border-bottom: 1px solid #ccc;
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column; /* Change flex-direction to column */
+}
+
+.order-details {
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+}
+
+.order-info {
+    flex-grow: 1;
+}
+
+.order-id,
+.order-status,
+.order-deliveryTime,
+.order-orderTime {
+    margin-bottom: 5px;
+}
+
+.order-price {
+    font-weight: bold;
+    color: #7b5165;
+    padding-top: 10px; 
+}
+
+.orders-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    max-width: 80%;
+}
+
+.close {
+    color: #383d3b;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #7b5165;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.dish-container {
+    display: flex;
+    flex-direction: column; 
+    margin-bottom: 20px;
+    border-bottom: 1px solid #e5e5e5;
+    padding-bottom: 20px; 
+    position: relative; 
+}
+
+.dish-image {
+    width: 100px;
+    height: 75px;
+    margin-right: 20px;
+}
+
+.dish-info {
+    flex-grow: 1;
+}
+
+.dish-name {
+    font-weight: bold;
+    padding-top: 10px;
+}
+
+.dish-price,
+.dish-amount,
+.dish-total-price {
+    margin-top: 5px;
+}
+
+
+.dish-totalPrice {
+    font-size: large;
+    position: absolute; 
+    right: 0; 
+    bottom: 0;
+    padding-bottom: 10px;
+    font-weight: bolder;
+}
+
+.total-price {
+    font-weight: bold;
+    color: #7b5165;
+}
+
+.confirm-order-btn {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #7b5165;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.confirm-order-btn:hover {
+    background-color: #634356;
+}
+
+/* Style for confirm button wrapper */
+.confirm-btn-wrapper {
+    display: flex;
+    justify-content: flex-end; /* Align confirm button wrapper to the right */
+    align-items: center; /* Align confirm button wrapper vertically */
+    margin-top: 10px; /* Adjust margin as needed */
+}
+
+
+.confirmOrderBtn {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #7b5165;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block;
+}
+
+
+.order-id {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.additional-details {
+    margin-top: 20px;
+    border-bottom: 2px solid #7b5165; 
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-radius: 14px;
+}
+
+.additional-details p {
+    padding: 10px;
+    margin: 10px;
+    border-bottom: 1px solid #7b5165;
+    border-image: linear-gradient(to right, #000 40%, transparent 40%) 100% 1;
+}
+
+.additional-details p:last-child {
+    margin-bottom: 0;
+    border-bottom: 0px solid #7b5165;
+    
+}
+
+/* .order-status {
+    font-weight: bold;
+} */
+.divbtn{
+    display: flex;
+    justify-content: flex-end;
+}
+

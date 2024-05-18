@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
             profileIcon.style.display = 'inline';
             cartIcon.style.display = 'inline';
             authButton.addEventListener('click', function () {
+                console.log("safa")
                 logout();
             });
         } else {

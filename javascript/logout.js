@@ -1,7 +1,7 @@
 function logout() {
     const apiUrl = 'https://food-delivery.int.kreosoft.space/api/account/logout';
 
-    var token = localStorage.getItem('token');
+    const token = localStorage.getItem('token');
 
     if (!token) {
         console.log('Token not found. User might not be logged in.');

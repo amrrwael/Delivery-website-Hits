@@ -37,10 +37,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     checkLoginStatus();
 
-
-
-    
-
     let currentPage = parseInt(localStorage.getItem('currentPage')) || 1;
     let currentCategories = [];
     let currentSorting = 'none';
@@ -183,7 +179,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function convertRatingToStars(rating) {
         let starsHtml = '';
-        // const fullStarCount = Math.floor(rating); 
         const fullStarCount = rating;
         console.log(fullStarCount)
         const decimalPart = rating % 1;
@@ -247,7 +242,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let ratingValue = 0;
 
     // Get star elements and add event listeners
-    // const stars = document.querySelectorAll('.star-rating .bx');
+    
     const stars = document.querySelectorAll('.hh');
     stars.forEach((star, index) => {
 
@@ -255,8 +250,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         star.addEventListener('click', function () {
             ratingValue = parseFloat(this.getAttribute('data-rating'));
-            // updateStarRating(ratingValue);
-            
             ratingValue = hv;
         });
 
@@ -268,13 +261,13 @@ document.addEventListener('DOMContentLoaded', function () {
             const rect = star.getBoundingClientRect();
             const percent = (event.clientX - rect.left) / rect.width;
             if (percent >= 0.5) {
-                // updateStarRating(hoverValue);
                 star.innerHTML = `<i class='bx bxs-star' style='color: gold;'></i>`;
-                hv = hoverValue
-            } else {
-                // updateStarRating(hoverValue - 0.5);
+                hv = hoverValue;
+            }
+
+            else {
                 star.innerHTML= `<i class='bx bxs-star-half' style='color: gold;'></i>`;
-                hv = hoverValue-.5
+                hv = hoverValue - .5;
             }
 
             if (percent <= 0) {
@@ -284,24 +277,15 @@ document.addEventListener('DOMContentLoaded', function () {
             for (let i = 0; i < index; i++) {
                 stars[i].innerHTML = `<i class='bx bxs-star' style='color: gold;'></i>`;
             }
+
             for (let i = index+1; i < stars.length; i++) {
                 stars[i].innerHTML = `<i class='bx bx-star' style='color: black;'></i>`;
             }
-
-            
-
-            // console.log(index)
-
-            // console.log(percent)
         });
 
-        // Remove hover effect
+        
         star.addEventListener('mouseleave', function () {
-            // updateStarRating(hv);
-
             
-            
-
             for (let i = 0; i < ratingValue; i++) {
                 stars[i].HTML =`<i class='bx bxs-star-half' style='color: gold;'></i>`;
                 if (!Number.isInteger(ratingValue)) stars[Math.floor(ratingValue)].innerHTML = innerHTML= `<i class='bx bxs-star-half' style='color: gold;'></i>`;
@@ -326,16 +310,11 @@ document.addEventListener('DOMContentLoaded', function () {
     submitButton.addEventListener('click', function () {
         // Handle rating submission here
         submitRating(dishId, ratingValue)
-        // Close the popup after submission if needed
         ratingPopup.style.display = 'none';
     });
-}
+    }
 
     
-    
-    
-
-
     function submitRating(dishId, ratingValue) {
         const token = localStorage.getItem('token');
         const requestOptions = {
@@ -359,10 +338,6 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
-
-    
-
-
     function fetchCart() {
         const requestOptions = {
             method: 'GET',
@@ -384,12 +359,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 cartAmount += data[i].amount; // Sum up the amount of each dish
             }
 
-            
-
-            
-
             cartItemCountSpan.textContent = cartAmount; // Update the cart item count span
-            console.log(map);
             
         })
         .catch(error => {
@@ -411,7 +381,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
-                // fetchCart();
                 return response.json();
             })
             .then(data => {
@@ -424,25 +393,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 const dishesContainer = document.getElementById('dish-container');
                 dishesContainer.innerHTML = '';
 
-                // fetchCart();
 
                 dishes.forEach(dish => {
                     const dishElement = document.createElement('div');
                     dishElement.classList.add('dishCard');
 
-                    // console.log(dish)
-                    console.log("MAP", map)
-                    if (map.has(dish.name)) {
-                        console.log(dish.name)
-                        console.log("YOOOO")
-                    }
-
-                    
-                    // const ratingStars = convertRatingToStars(Math.round(dish.rating));
                     const ratingStars = convertRatingToStars(dish.rating);
-                    // <h2 class="dish-rate">${ratingStars}</h2>
-
-                    // convertRatingToStars(Math.round(dish.rating));
                     
 
                     dishElement.innerHTML = `
@@ -478,12 +434,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         </div>
                         </div>
                     `;
-
-                    // {dish.name && `<button class="add-to-cart-btn" data-dish-id="${dish.id}">Add to Cart</button>`}
-                    // ${!map.get(dish.name) && `<p>hello</p>`}
-
-                    
-
+  
                     const dishImage = dishElement.querySelector('.dish-image');
                     dishImage.addEventListener('click', function () {
                         handleDishImageClick(dish);
@@ -552,7 +503,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
 
                 const totalPages = data.pagination.count;
-                console.log('Total Pages:', totalPages); // Log total pages
                 updatePagination(totalPages);
 
                 return data;
@@ -669,13 +619,7 @@ document.addEventListener('DOMContentLoaded', function () {
         window.history.replaceState(null, null, `?${urlParams.toString()}`);
     }
 
-    function checkURLChanges() {
-        const currentParams = new URLSearchParams(window.location.search);
-        const storedParams = new URLSearchParams(currentURL.split('?')[1]);
-        if (currentParams.toString() !== storedParams.toString()) {
-            fetchDataFromURL();
-        }
-    }
+    
 
     fetchDataFromURL();
      

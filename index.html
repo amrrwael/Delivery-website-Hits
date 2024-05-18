@@ -1,5 +1,3 @@
-
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,72 +8,48 @@
     <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
     <link href="https://fonts.googleapis.com/css2?family=Anta&family=Press+Start+2P&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/boxicons/2.0.7/css/boxicons.min.css">
     <title>Savor Haven</title>
 </head>
 <body>
-
-    
+    <!-- Header section -->
     <header class="header">
-
-        <a  class="UnderLogo" href="/index.html">
-        <h1 class="logo">Savor Haven</h1>
-    </a>
-        
-
-<div class="btn">
-
-    
-
-        <div class="icons">
-
-            <div class="profileIcon">
-                <a class="UnderProfile" href="html/profile.html">
-    <i class='bx bx-user' id="profileIcon" style="display:none;"></i>
-                </a>
+        <a class="UnderLogo" href="/index.html">
+            <h1 class="logo">Savor Haven</h1>
+        </a>
+        <div class="btn">
+            <div class="icons">
+                <div class="profileIcon">
+                    <a class="UnderProfile" href="html/profile.html">
+                        <i class='bx bx-user' id="profileIcon" style="display:none;"></i>
+                    </a>
+                </div>
+                <div class="orderIcon" id="orderIcon" style="display: none;">
+                    <a class="UnderOrder" href="/html/order.html">
+                        <p2>Orders</p2>
+                    </a>
+                </div>
+                <div class="cartIcon" id="cartIcon" style="display: none;">
+                    <a class="UnderCart" href="/html/cart.html">
+                        <p2>Cart</p2>
+                        <span id="cartItemCount" class="cart-item-count">0</span>
+                    </a>
+                </div>
             </div>
-
-
-            <div class="orderIcon" id="orderIcon" style="display: none;">
-                <a class="UnderOrder" href="/html/order.html">
-                    <p2>Orders</p2>
-                </a>
-            </div>
-
-            <div class="cartIcon" id="cartIcon" style="display: none;">
-                <a class="UnderCart" href="/html/cart.html">
-                    <p2>Cart</p2>
-                    <span id="cartItemCount" class="cart-item-count">0</span>
-
-                </a>
-            </div>
-
-            
-        
-        </div>
-
-        <a href="/html/login.html">
-            <button id="authButton" class="btnLogin" role="btnLogin">
-                    
-                
+            <a href="/html/login.html">
+                <button id="authButton" class="btnLogin" role="btnLogin">
                     <span class="text">LOG IN / SIGN UP</span>
-                </a>
-            </button>
-</div>
+                </button>
+            </a>
+        </div>
+    </header>
 
-</header>
+    <!-- Navigation bar -->
+    <div class="navbar"></div>
 
-    <div class="navbar">
-        
-    </div>
-
-    
-
+    <!-- Main content -->
     <div class="grid-container">
         <div class="filters">
             <label for="categorySelect">Category:</label>
@@ -86,10 +60,8 @@
                 <label><input type="checkbox" name="category" value="Dessert"> Dessert</label>
                 <label><input type="checkbox" name="category" value="Drink"> Drink</label>
             </div>
-            
-        
             <label for="sortingSelect">Sorting:</label>
-            <select id="sortingSelect" >
+            <select id="sortingSelect">
                 <option value="none">None</option>
                 <option value="NameAsc">A-Z</option>
                 <option value="NameDesc">Z-A</option>
@@ -98,27 +70,22 @@
                 <option value="RatingAsc">Rating (Ascending)</option>
                 <option value="RatingDesc">Rating (Descending)</option>
             </select>
-
             <div id="loadingSpinner" class="loading-spinner"></div>
-        
             <button class="filterbtn1" id="applyFilters">Apply</button>
             <button class="filterbtn2" id="clearFilters">Clear</button>
-            
             <label for="vegetarianCheckbox">Vegetarian:</label>
-    <input type="checkbox" id="vegetarianCheckbox">
+            <input type="checkbox" id="vegetarianCheckbox">
         </div>
-        
         <div id="dish-container" class="dish-container"></div>
         <div class="page">
-        <div class="pagination" id="pagination-container"></div>
+            <div class="pagination" id="pagination-container"></div>
+        </div>
     </div>
-    </div>
 
-
-
+    <!-- About Us section -->
     <div class="about-Container">
         <div class="tchef">
-        <h1>About Us</h1>
+            <h1>About Us</h1>
         </div>
         <div class="boxContainer">
             <div class="lDiv">
@@ -127,11 +94,9 @@
                     <h5>At Savor Haven, we believe that a dining experience should be more than just a meal – it should be a journey of flavors, a celebration of quality ingredients, and a symphony of tastes that leave a lasting impression. Nestled in the heart of [Mayak], our restaurant is a haven for those seeking a delightful escape into the world of delectable cuisine.</h5>
                     <h5>Our chefs, inspired by a passion for culinary artistry, craft each dish with precision and creativity. From the freshest local produce to globally sourced ingredients, we take pride in offering a diverse menu that caters to every palate. Whether you're a connoisseur of fine dining or a casual food enthusiast, Savor Haven promises an unforgettable gastronomic experience.</h5>
                     <h5>We are committed to providing impeccable service, ensuring that every visit to Savor Haven is a seamless and enjoyable affair. Our attentive staff is dedicated to making you feel at home, whether you're joining us for a quick lunch, a romantic dinner, or a special event.</h5>
-                    <h5>Thank you for choosing Savor Haven. We invite you to indulge in the extraordinary, savor the moment, and make every meal a celebration. Join us on this culinary journey, where every dish tells a story, and every bite is a taste of perfection. Welcome to Savor Haven – where every meal is a masterpiece.
-                    </h5>
+                    <h5>Thank you for choosing Savor Haven. We invite you to indulge in the extraordinary, savor the moment, and make every meal a celebration. Join us on this culinary journey, where every dish tells a story, and every bite is a taste of perfection. Welcome to Savor Haven – where every meal is a masterpiece.</h5>
                 </div>
             </div>
-            
             <div class="rDiv">
                 <div class="chef-row">
                     <div class="chef-col">
@@ -139,35 +104,15 @@
                             <img src=".//images/chef2.png">
                         </div>
                         <div>
-                            <h4> Micheal habebe</h4>
+                            <h4> Micheal Habebe</h4>
                         </div>
-                    </div>  
+                    </div>
                 </div>
             </div>
-        </div>  
-    </div>
-    
-    
-    <!-- <script src="/javascript/cart.js"></script> -->
-
-
-    <!-- <div class="rating">
-        <div class="star-container">
-          <div class="star"></div>
-          <div class="star"></div>
-          <div class="star"></div>
-          <div class="star"></div>
-          <div class="star"></div>
-          <div class="star"></div>
-          <div class="star"></div>
-          <div class="star"></div>
-          <div class="star"></div>
-          <div class="star"></div>
         </div>
-      </div> -->
-      
+    </div>
 
-    
+    <!-- Popup for dish details -->
     <div class="popup" id="popup">
         <div class="popup-content">
             <span class="close-btn" id="closePopup">&times;</span>
@@ -175,43 +120,29 @@
         </div>
     </div>
 
-    
-<div id="ratingPopup" class="rating-popup">
-    <div class="rating-popup-content">
-        <span id="closeRatingPopup" class="close-popup">&times;</span>
-        <h2>Rate this dish</h2>
-        <div class="star-rating" id="starRating">
-            <i class="hh" data-rating="1">☆</i>
-            <!-- <i class="hh" data-rating="1.5"></i> -->
-            <i class="hh" data-rating="2">☆</i>
-            <!-- <i class="hh" data-rating="2.5"></i> -->
-            <i class="hh" data-rating="3">☆</i>
-            <!-- <i class="hh" data-rating="3.5"></i> -->
-            <i class="hh" data-rating="4">☆</i>
-            <!-- <i class="hh" data-rating="4.5"></i> -->
-            <i class="hh" data-rating="5">☆</i>
-            <!-- <i class="hh" data-rating="5.5"></i> -->
-            <i class="hh" data-rating="6">☆</i>
-            <!-- <i class="hh" data-rating="6.5"></i> -->
-            <i class="hh" data-rating="7">☆</i>
-            <!-- <i class="hh" data-rating="7.5"></i> -->
-            <i class="hh" data-rating="8">☆</i>
-            <!-- <i class="hh" data-rating="8.5"></i> -->
-            <i class="hh" data-rating="9">☆</i>
-            <!-- <i class="hh" data-rating="9.5"></i> -->
-            <i class="hh" data-rating="10">☆</i>
+    <!-- Popup for rating a dish -->
+    <div id="ratingPopup" class="rating-popup">
+        <div class="rating-popup-content">
+            <span id="closeRatingPopup" class="close-popup">&times;</span>
+            <h2>Rate this dish</h2>
+            <div class="star-rating" id="starRating">
+                <i class="hh" data-rating="1">☆</i>
+                <i class="hh" data-rating="2">☆</i>
+                <i class="hh" data-rating="3">☆</i>
+                <i class="hh" data-rating="4">☆</i>
+                <i class="hh" data-rating="5">☆</i>
+                <i class="hh" data-rating="6">☆</i>
+                <i class="hh" data-rating="7">☆</i>
+                <i class="hh" data-rating="8">☆</i>
+                <i class="hh" data-rating="9">☆</i>
+                <i class="hh" data-rating="10">☆</i>
+            </div>
+            <div class="bottom-rating"></div>
+            <button id="submitRating" class="submit-rating-btn">Submit</button>
+        </div>
+    </div>
 
-        </div>
-        <div class="bottom-rating">
-            <!-- <div class="rating-value"> -->
-        <!-- <span id="ratingValue">0</span> Stars -->
-    </div>
-        <button id="submitRating" class="submit-rating-btn">Submit</button>
-        </div>
-    </div>
-</div>
-<script src="script.js"></script>
-    <!-- <script src="/javascript/login.js" ></script> -->
+    <script src="script.js"></script>
     <script src="/javascript/logout.js"></script>
 </body>
 </html>

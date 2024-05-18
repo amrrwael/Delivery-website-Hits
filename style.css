@@ -1,25 +1,21 @@
-/* footer */
+
 *{
   scroll-behavior: smooth;
   
-}
-/* :root{
-  #B0F2B4
-  383d3b
-  eee5e9
-} */
- body{
+  }
+
+body{
   background-color: #eee5e9;
   padding: 0;
   margin: 0;
- }
+  }
   
-  img{
+img{
     width: 250px;
   }
 
 
-  .header{
+.header{
     font-family: 'Anta';
     align-items: center;
     display: flex;
@@ -28,31 +24,31 @@
     margin-right: 20px;
   }
 
-  .icons{
+.icons{
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 20px;
   }
 
-  .cartIcon,
-  .orderIcon,
-  .profileIcon,
-  .UnderLogo{
+.cartIcon,
+.orderIcon,
+.profileIcon,
+.UnderLogo{
     position: relative;
     color: #383d3b;
     
   }
 
-  .UnderCart,
-  .UnderOrder,
-  .UnderProfile,
-  .UnderLogo{
+.UnderCart,
+.UnderOrder,
+.UnderProfile,
+.UnderLogo{
     text-decoration: none;
     
   }
 
-  .cartIcon span{
+.cartIcon span{
     display: flex;
     width: 20px;
     height: 20px;
@@ -70,16 +66,16 @@
 
 .dish-description{
   padding-left: 10px;
-}
+  }
 
 .dish-category{
   padding-left: 10px;
-}
+  }
 .btn{
   align-items: center;
   display: flex;
   justify-content: space-around;
-}
+  }
 
 
 
@@ -92,7 +88,7 @@
   margin: 20px auto;
   padding: 0 10px; /* Adjust padding for better spacing */
   background-color: #eee5e9;
-}
+  }
 
 @media screen and (max-width: 768px) {
   .dish-container {
@@ -108,7 +104,7 @@
 }
 
 
-  .dishCard {
+.dishCard {
     width: 250px;
     display: flex;
     margin: 10px;
@@ -121,14 +117,14 @@
     justify-content: space-between;
     flex-direction: column;
     align-content: center;
-}
+  }
 
   
 .dish-name{
     display: flex;
     font-family: 'Montserrat';
     justify-content: center;
-}
+  }
 
 .dish-price {
   font-size: x-large;
@@ -137,31 +133,31 @@
   justify-content: center;
   align-content: space-between;
    
-}
+  }
 
 .AddtoCartBtn{
   display: flex;
   justify-content: flex-start;
 
-}
+  }
 
 
 .DivRate {
   display: flex;
 
-}
+  }
 
 .DivName {
   display: flex;
   justify-content: space-around;
-}
+  }
 
 .DivPrice {
   display: flex;
   justify-content: space-around;
   padding-left: 10px;
   align-items: center;
-}
+  }
 
 
 
@@ -172,7 +168,7 @@
   padding: 1rem;
   display: flex;
   justify-content: space-around;
-}
+  }
 
 
 @media screen and (max-width: 768px) {
@@ -414,19 +410,19 @@ button.page-button.active {
   border: 1px solid #ccc;
   border-radius: 5px;
   margin-right: 10px;
-}
+  }
 
 
 .filters select option {
   background-color: #fff;
   color: #333;
-}
+  }
 
 
 .filters select option:hover {
   background-color: #d0cccd;
   color: #fff;
-}
+  }
 
 
 
@@ -444,12 +440,12 @@ button.page-button.active {
     margin-top: 10px;
     margin-right: 10px;
     transition: background-color 0.3s ease;
-}
+  }
 
 .filterbtn1:hover,
 .filterbtn2:hover {
     background-color: #d0cccd;
-}
+  }
 
 
 /* Popup overlay */
@@ -463,7 +459,7 @@ button.page-button.active {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
   z-index: 9999;
-}
+  }
 
 /* Popup content */
 
@@ -478,13 +474,13 @@ button.page-button.active {
   cursor: pointer;
   font-size: 20px;
   color: #888; 
-}
+  }
 
 .close-btn:hover,
 .close-popup:hover {
   color: #000000;
 
-}
+  }
 
 .popup-content {
   position: absolute;
@@ -499,7 +495,7 @@ button.page-button.active {
   height: 700px; 
   max-width: 80%;
   max-height: 80%;
-}
+  }
 
 .popup-content img.pop-image {
   max-width: 100%;
@@ -508,20 +504,20 @@ button.page-button.active {
   height: auto;
   border-radius: 5px;
   margin-bottom: 10px;
-}
+  }
 
 .pop-name {
   color: #333;
   margin-bottom: 10px;
   font-size: 24px;
   font-family: 'Montserrat';
-}
+  }
 
 
 .pop-category {
   font-weight: bold;
   font-family: 'Merriweather';
-}
+  }
 
 
 
@@ -531,18 +527,18 @@ button.page-button.active {
   justify-content: space-around;
   color: #4caf50;
   align-items: center;
-}
+  }
 
 
 .pop-description {
   color: #333; 
   line-height: 1.6;
-}
+  }
 
 
 .pop-rating {
   color: #ff9800; 
-}
+  }
 
 
 .pop-price {
@@ -552,7 +548,7 @@ button.page-button.active {
   font-family: 'Montserrat';
   font-weight: bold;
   font-size: larger;
-}
+  }
 
 .add-to-cart-btn,
 .increase-quantity-btn:hover,
@@ -561,7 +557,7 @@ button.page-button.active {
   border-radius: 7px;
   border: 2px solid #092841;
   border-width: 2px;
-}
+  }
 .add-to-cart-btn:hover
 ,.increase-quantity-btn,
 .decrease-quantity-btn{
@@ -570,7 +566,7 @@ button.page-button.active {
   border-radius: 7px;
   border: 2px solid #092841;
   border-width: 2px;
-}
+  }
 
 .dish-rate {
   border-bottom: 1px solid #092841;
@@ -578,12 +574,12 @@ button.page-button.active {
   padding: 20px;
   color: #f09a0f;
   font-size: 20px;
-}
+  }
 
 .rate-btn{
   border: 0px;
   background-color: #eee5e9;
-}
+  }
 
 /* Rating Popup Modal */
 #ratingPopup {
@@ -598,11 +594,11 @@ button.page-button.active {
   padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   z-index: 1000;
-}
+  }
 
 #ratingPopup h2 {
   margin-bottom: 10px;
-}
+  }
 
 #ratingPopup input[type="number"] {
   width: 100%;
@@ -610,7 +606,7 @@ button.page-button.active {
   margin-bottom: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
-}
+  }
 
 #ratingPopup button {
   padding: 10px 20px;
@@ -619,22 +615,21 @@ button.page-button.active {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-}
+  }
 
 #ratingPopup button:hover {
   background-color: #2f2f2f;
-}
+  }
 
-/* Rating Stars */
-/* Rating Stars */
-/* Rating Stars */
+
+
 .bx.bxs-star,
 .bx.bx-star {
   font-size: 24px;
   color: #ddd;
   cursor: pointer;
   transition: color 0.3s ease;
-}
+  }
 
 
 
@@ -643,7 +638,7 @@ button.page-button.active {
   font-size: 24px;
   font-family: 'Boxicons';
   
-}
+  }
 
 
 
@@ -651,60 +646,48 @@ button.page-button.active {
   display: flex;
   justify-content: center;
   align-items: center;
-}
+  }
 
 .star-rating .bx {
   font-size: 24px;
   color: #ddd;
   cursor: pointer;
   transition: color 0.3s ease;
-}
+  }
 
 .star-rating .bx:hover,
 .star-rating .bx.filled {
   color: #f9ca24;
-}
+  }
 
 .star-rating .bx:hover,
 .star-rating .bx.filled {
   color: #f9ca24;
-}
+  }
 
 .bottom-rating{
   padding-top: 50px;
   display: flex;
   justify-content: space-between;
   
-}
-
-
-
-
-
-
-
-
-
-
-
+  }
 
 .rating {
   display: inline-block;
-}
+  }
 
 .star-container {
-  font-size: 12px; /* Remove white space between inline-block elements */
-}
+  font-size: 12px; 
+  }
 
 .star {
   display: inline-block;
-  width: 20px; /* Adjust according to your design */
-  height: 20px; /* Adjust according to your design */
-  /* background-image: url('path_to_star_image'); */
+  width: 20px; 
+  height: 20px;
   background-size: contain;
-}
+  }
 
 .item_count{
   color: red;
   background-color: #000000;
-}
+  }

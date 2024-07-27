@@ -59,15 +59,15 @@
       top: 50%;
       right: -22px;
       
-    }
+}
   
-    .btn{
+.btn{
         align-items: center;
         display: flex;
         justify-content: space-around;
-      }
+}
       
-      .btnLogin{
+.logOutBtn{
         border: 3px solid black;
         border-radius: 10px;
         appearance: none;
@@ -98,7 +98,7 @@
         white-space: nowrap;
       }
       
-      .btnLogin:before , .btnSign:before {
+.logOutBtn:before {
         animation:  .1s step-end forwards;
         backface-visibility: hidden;
         background-color: #7b5165;
@@ -113,16 +113,16 @@
         width: 100%;
       }
       
-      .btnLogin:hover:before , .btnSign:hover:before {
+.logOutBtn:hover:before {
         animation:  0s step-start forwards;
         clip-path: polygon(0 0, 101% 0, 101% 101%, 0 101%);
       }
       
-      .btnLogin::after , .btnSign:after {
+      .btnLogin::after , .logOutBtn:after {
         background-color: #e7dae0;
       }
       
-      .btnLogin span , .btnSign span {
+      .btnLogin span , .logOutBtn span {
         z-index: 1;
         position: relative;
       }

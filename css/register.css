@@ -1,9 +1,8 @@
-/* style.css */
 body { 
 	display: flex; 
 	align-items: center; 
 	justify-content: center; 
-	font-family: sans-serif,'Courier New','monospace';
+	font-family: 'Courier New','monospace';
 	line-height: 1.5; 
 	min-height: 100vh; 
 	background: #f3f3f3; 

@@ -54,7 +54,7 @@ body {
     color: #000000;
     cursor: pointer;
     display: inline-block;
-    font-family: Clarkson, Helvetica, sans-serif;
+    font-family: Clarkson, Helvetica, 'Courier New'f;
     font-size: 16px;
     font-weight: 500;
     letter-spacing: 0;
@@ -125,7 +125,7 @@ body {
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     max-width: 800px;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Montserrat','Courier New' ;
 }
 
 .dish-details-container h2.dish-name {

@@ -1,176 +1,172 @@
 *{
-    scroll-behavior: smooth;
-    
-  }
-  /* :root{
-    #B0F2B4
-    383d3b
-    eee5e9
-  } */
-   body{
-    background-color: #eee5e9;
-    padding: 0;
-    margin: 0;
-   }
-    
-  
-  
-    .header{
-      font-family: 'Anta','Courier New','monospace';
-      align-items: center;
-      display: flex;
-      justify-content: space-between;
-      margin-left: 75px;
-      margin-right: 20px;
-    }
-  
-    .icons{
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-    }
-  
-    .cartIcon,
-  .orderIcon,
-  .profileIcon,
-  .UnderLogo{
-    position: relative;
-    color: #383d3b;
-    
-  }
+  scroll-behavior: smooth;
+}
 
-  .UnderCart,
-  .UnderOrder,
-  .UnderProfile,
-  .UnderLogo{
-    text-decoration: none;
+body{
+  background-color: #eee5e9;
+  padding: 0;
+  margin: 0;
+}
     
-  }
+  
+  
+.header{
+  font-family: 'Anta','Courier New','monospace';
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-left: 75px;
+  margin-right: 20px;
+}
+  
+.icons{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+  
+.cartIcon,
+.orderIcon,
+.profileIcon,
+.UnderLogo{
+  position: relative;
+  color: #383d3b;
+    
+}
+
+.UnderCart,
+.UnderOrder,
+.UnderProfile,
+.UnderLogo{
+  text-decoration: none;
+    
+}
   
     
   
-    .btn{
-        align-items: center;
-        display: flex;
-        justify-content: space-around;
+.btn{
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+}
+      
+
+.logOutBtn{
+  border: 3px solid black;
+  border-radius: 10px;
+  appearance: none;
+  background-color: #eee5e9;
+  box-sizing: border-box;
+  color: #000000;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1em;
+  margin: 0;
+  opacity: 1;
+  outline: 0;
+  padding: 1.5em 2.2em;
+  margin-left: 50px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  text-rendering: geometricprecision;
+  text-transform: uppercase;
+  transition: opacity 300ms cubic-bezier(.694, 0, 0.335, 1), 400ms cubic-bezier(.694, 0, 0.335, 1),color 100ms cubic-bezier(.694, 0, 0.335, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: baseline;
+  white-space: nowrap;
+}
+      
+.logOutBtn:before {
+    animation:  .1s step-end forwards;
+    backface-visibility: hidden;
+    background-color: #7b5165;
+    clip-path: polygon(-1% 0, 0 0, -25% 100%, -1% 100%);
+    content: "";
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transform: translateZ(0);
+    transition:  .5s cubic-bezier(.165, 0.84, 0.44, 1),  .5s cubic-bezier(.165, 0.84, 0.44, 1);
+    width: 100%;
+}
+      
+.logOutBtn:hover:before {
+                  animation:  0s step-start forwards;
+                  clip-path: polygon(0 0, 101% 0, 101% 101%, 0 101%);
       }
       
-      .btnLogin{
-        border: 3px solid black;
-        border-radius: 10px;
-        appearance: none;
-        background-color: #eee5e9;
-        box-sizing: border-box;
-        color: #000000;
-        cursor: pointer;
-        display: inline-block;
-        font-size: 16px;
-        font-weight: 500;
-        letter-spacing: 0;
-        line-height: 1em;
-        margin: 0;
-        opacity: 1;
-        outline: 0;
-        padding: 1.5em 2.2em;
-        margin-left: 50px;
-        position: relative;
-        text-align: center;
-        text-decoration: none;
-        text-rendering: geometricprecision;
-        text-transform: uppercase;
-        transition: opacity 300ms cubic-bezier(.694, 0, 0.335, 1), 400ms cubic-bezier(.694, 0, 0.335, 1),color 100ms cubic-bezier(.694, 0, 0.335, 1);
-        user-select: none;
-        -webkit-user-select: none;
-        touch-action: manipulation;
-        vertical-align: baseline;
-        white-space: nowrap;
-      }
-      
-      .btnLogin:before , .btnSign:before {
-        animation:  .1s step-end forwards;
-        backface-visibility: hidden;
-        background-color: #7b5165;
-        clip-path: polygon(-1% 0, 0 0, -25% 100%, -1% 100%);
-        content: "";
-        height: 100%;
-        left: 0;
-        position: absolute;
-        top: 0;
-        transform: translateZ(0);
-        transition:  .5s cubic-bezier(.165, 0.84, 0.44, 1),  .5s cubic-bezier(.165, 0.84, 0.44, 1);
-        width: 100%;
-      }
-      
-      .btnLogin:hover:before , .btnSign:hover:before {
-        animation:  0s step-start forwards;
-        clip-path: polygon(0 0, 101% 0, 101% 101%, 0 101%);
-      }
-      
-      .btnLogin::after , .btnSign:after {
+.logOutBtn:after {
         background-color: #e7dae0;
       }
       
-      .btnLogin span , .btnSign span {
+.logOutBtn span {
         z-index: 1;
         position: relative;
       }
       
 .navbar {
-    background-color: #383d3b;
-    padding: 1rem;
-    display: flex;
-    justify-content: space-around;
-  }
+  background-color: #383d3b;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-around;
+}
 
 .button {
-    background-color: #70485C; /* Green */
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    text-decoration: none; /* Remove underline from links */
-    display: inline-block; /* Align correctly if used within <a> tags */
-    font-size: 16px;
+  background-color: #70485C;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none; 
+  display: inline-block; 
+  font-size: 16px;
 }
 
 .button:hover {
-    background-color: #312028;
+  background-color: #312028;
 }
 
 #input{
-    background-color: #cccccc;
+  background-color: #cccccc;
 }
 
 #editProfileForm {
-    background: white;
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+  background: white;
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
 }
 
 #editProfileForm input[type="text"],
 #editProfileForm input[type="date"],
 #editProfileForm select {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-sizing: border-box; 
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box; 
 }
 
 #editProfileForm button {
-    background-color: #5cb85c;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
+  background-color: #5cb85c;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
 }
 
 #editProfileForm button:hover {
@@ -178,27 +174,27 @@
 }
 
 #profileInfo {
-    background: white;
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+  background: white;
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
 }
 
 #profileInfo p {
-    margin: 10px 0;
-    line-height: 1.5;
+  margin: 10px 0;
+  line-height: 1.5;
 }
 
 /* A little bit of responsiveness */
 @media (max-width: 768px) {
-    body {
-        padding: 10px;
-    }
+  body {
+      padding: 10px;
+  }
 
-    #editProfileForm,
-    #profileInfo {
-        margin: 10px;
-    }
+  #editProfileForm,
+  #profileInfo {
+      margin: 10px;
+  }
 }

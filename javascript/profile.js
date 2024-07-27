@@ -1,36 +1,18 @@
 document.addEventListener("DOMContentLoaded", function() {
-    let authButton = document.getElementById('authButton');
+    let logOutBtn = document.getElementById('logOutBtn');
     let profileIcon = document.getElementById('profileIcon');
     let orderIcon = document.getElementById('orderIcon');
     let cartIcon = document.getElementById('cartIcon');
     const token = localStorage.getItem('token');
 
-    function checkLoginStatus() {
-        let token = localStorage.getItem('token');
-        let isLoggedIn = token !== null;
-
-        if (isLoggedIn) {
-            console.log(token);
-            console.log('User is logged in');
-            authButton.innerHTML = '<span class="text">LOG OUT</span>';
-            orderIcon.style.display = 'inline';
-            profileIcon.style.display = 'inline';
-            cartIcon.style.display = 'inline';
-            authButton.addEventListener('click', function () {
-                logout();
-            });
-        } else {
-            token = localStorage.removeItem('token')
-            console.log('User is not logged in');
-            authButton.innerHTML = '<span class="text">LOG IN / SIGN UP</span>';
-            profileIcon.style.display = 'none';
-            authButton.addEventListener('click', function () {
-                window.location.href = '/html/login.html';
-            });
-        }
+    logOutBtn.style.display = 'inline';
+    orderIcon.style.display = 'inline';
+    profileIcon.style.display = 'inline';
+    cartIcon.style.display = 'inline';
+    
+    if(!token){
+        window.location.href = '../index.html'
     }
-
-    checkLoginStatus();
     
     fetchProfile(token);
 

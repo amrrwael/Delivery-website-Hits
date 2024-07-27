@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     let authButton = document.getElementById('authButton');
+    let logOutBtn = document.getElementById('logOutBtn');
     let profileIcon = document.getElementById('profileIcon');
     let orderIcon = document.getElementById('orderIcon');
     let cartIcon = document.getElementById('cartIcon');
@@ -7,35 +8,83 @@ document.addEventListener('DOMContentLoaded', function () {
     let closePopupBtn = document.getElementById('closePopup');
     let popupDishDetails = document.getElementById('popupDishDetails');
     let cartItemCountSpan = document.getElementById("cartItemCount");
-    const token = localStorage.getItem('token');
+    let token = localStorage.getItem('token');
     const map = new Map();
 
-    function checkLoginStatus() {
-        let token = localStorage.getItem('token');
-        let isLoggedIn = token !== null;
+   
 
-        if (isLoggedIn) {
-            console.log(token);
+    function updateAuthUI() {
+        if (token) {
             console.log('User is logged in');
-            authButton.innerHTML = '<span class="text">LOG OUT</span>';
+            authButton.style.display = 'none';
+            logOutBtn.style.display = 'inline';
             orderIcon.style.display = 'inline';
             profileIcon.style.display = 'inline';
             cartIcon.style.display = 'inline';
-            authButton.addEventListener('click', function () {
-                logout();
-            });
         } else {
-            token = localStorage.removeItem('token')
             console.log('User is not logged in');
-            authButton.innerHTML = '<span class="text">LOG IN / SIGN UP</span>';
+            authButton.style.display = 'inline';
+            logOutBtn.style.display = 'none';
             profileIcon.style.display = 'none';
-            authButton.addEventListener('click', function () {
-                window.location.href = '/html/login.html';
-            });
+            cartIcon.style.display = 'none';
+            orderIcon.style.display = 'none';
         }
     }
 
-    checkLoginStatus();
+    function logout() {
+        const token = localStorage.getItem('token');
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        };
+    
+        fetch('https://food-delivery.int.kreosoft.space/api/account/logout', requestOptions)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Network response was not ok, status: ${response.status}`);
+                }
+                localStorage.removeItem('token');
+                updateAuthUI();
+                console.log('Logged out successfully.');
+            })
+            .catch(error => {
+                console.error('Error logging out:', error);
+                localStorage.removeItem('token');
+                updateAuthUI();
+            });
+    }
+
+    function checkTokenExpiration() {
+        const token = localStorage.getItem("token");
+        if (!token) return; 
+
+        try {
+            const { exp } = JSON.parse(atob(token.split(".")[1]));
+            const tokenExp = exp * 1000;
+            const currentTime = Date.now();
+
+            if (currentTime >= tokenExp) {
+                console.log("Token expired. Logging out...");
+                logout();
+                location.reload();
+            } else {
+                const timeToExpire = tokenExp - currentTime;
+                setTimeout(checkTokenExpiration, timeToExpire);
+            }
+        } catch (error) {
+            console.error("Error parsing token:", error);
+            logout();
+            location.reload();
+        }
+    }
+
+    updateAuthUI();
+    checkTokenExpiration();
+    
+    
 
     let currentPage = parseInt(localStorage.getItem('currentPage')) || 1;
     let currentCategories = [];
@@ -427,10 +476,10 @@ document.addEventListener('DOMContentLoaded', function () {
                             <h2 class="dish-price">${dish.price} EGP</h2>
                             
                             <div class="AddtoCartBtn">
-                            <button class="increase-quantity-btn" style="display: ${map.get(dish.name) > 0 ? 'inline' : 'none'};">+</button>
-                            <p class="amount" style="display: ${map.get(dish.name) > 0 ? 'block' : 'none'}">${map.get(dish.name) || 0}</p>
                             <button class="add-to-cart-btn" data-dish-id="${dish.id}" style="display: ${map.get(dish.name) > 0 ? 'none' : 'inline'};">Add to Cart</button>
                             <button class="decrease-quantity-btn" style="display: ${map.get(dish.name) > 0 ? 'inline' : 'none'};">-</button>
+                            <p class="amount" style="display: ${map.get(dish.name) > 0 ? 'block' : 'none'}">${map.get(dish.name) || 0}</p>
+                            <button class="increase-quantity-btn" style="display: ${map.get(dish.name) > 0 ? 'inline' : 'none'};">+</button>
                         </div>
                         </div>
                     `;
@@ -445,6 +494,13 @@ document.addEventListener('DOMContentLoaded', function () {
                     const increaseQuantityBtn = dishElement.querySelector('.increase-quantity-btn');
                     const decreaseQuantityBtn = dishElement.querySelector('.decrease-quantity-btn');
                     const amount = dishElement.querySelector('.amount');
+
+                    if (!token) {
+                        addToCartBtn.style.display = 'none';
+                        increaseQuantityBtn.style.display = 'none';
+                        decreaseQuantityBtn.style.display = 'none';
+                        amount.style.display = 'none';
+                    }
     
                     addToCartBtn.addEventListener('click', function () {
                         const dishId = this.getAttribute('data-dish-id');
@@ -632,3 +688,7 @@ document.addEventListener('DOMContentLoaded', function () {
     
      
 });
+
+
+
+  

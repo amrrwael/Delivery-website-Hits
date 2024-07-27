@@ -1,13 +1,10 @@
-//aktbo page b eydy
 function solve(e) {
     const apiUrl = 'https://food-delivery.int.kreosoft.space/api/account/login';
-     e.preventDefault();
+    e.preventDefault();
 
-    
     var email = document.getElementById('email').value;
     var password = document.getElementById('password').value;
 
-    
     var requestData = {
         email: email,
         password: password
@@ -15,7 +12,6 @@ function solve(e) {
 
     console.log(requestData);
 
-    
     fetch(apiUrl, {
         method: 'POST',
         headers: {
@@ -37,20 +33,11 @@ function solve(e) {
         localStorage.setItem('token', token);
         console.log(token);
         
-        //console.log(token);
         // Redirect to the homepage after successful login
         window.location.href = '/index.html';
-        
-        
     })
     .catch(error => {
         console.error('Error:', error);
+        alert('Invalid email or password. Please try again.');
     });
-    
-    
 }
-
-
-
-
-

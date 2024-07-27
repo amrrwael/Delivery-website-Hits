@@ -1,37 +1,20 @@
 document.addEventListener("DOMContentLoaded", function() {
-    let authButton = document.getElementById('authButton');
+    let logOutBtn = document.getElementById('logOutBtn');
     let profileIcon = document.getElementById('profileIcon');
     let orderIcon = document.getElementById('orderIcon');
     let cartIcon = document.getElementById('cartIcon');
     const token = localStorage.getItem('token');
 
+    logOutBtn.style.display = 'inline';
+    orderIcon.style.display = 'inline';
+    profileIcon.style.display = 'inline';
+    cartIcon.style.display = 'inline';
     
-    function checkLoginStatus() {
-        let token = localStorage.getItem('token');
-        let isLoggedIn = token !== null;
-
-        if (isLoggedIn) {
-            console.log(token);
-            console.log('User is logged in');
-            authButton.innerHTML = '<span class="text">LOG OUT</span>';
-            orderIcon.style.display = 'inline';
-            profileIcon.style.display = 'inline';
-            cartIcon.style.display = 'inline';
-            authButton.addEventListener('click', function () {
-                logout();
-            });
-        } else {
-            token = localStorage.removeItem('token')
-            console.log('User is not logged in');
-            authButton.innerHTML = '<span class="text">LOG IN / SIGN UP</span>';
-            profileIcon.style.display = 'none';
-            authButton.addEventListener('click', function () {
-                window.location.href = '/html/login.html';
-            });
-        }
+    if(!token){
+        window.location.href = '../index.html'
     }
-
-    checkLoginStatus();
+            
+    
     fetchAndDisplayCart(token);
 
     document.getElementById('checkoutBtn').addEventListener('click', openOrderModal);
@@ -154,7 +137,7 @@ function decreaseItemQuantity(itemId, token) {
     fetch(`https://food-delivery.int.kreosoft.space/api/basket/dish/${itemId}?increase=true`, requestOptions)
     .then(response => {
         if (!response.ok) throw new Error(`Network response was not ok, status: ${response.status}`);
-        fetchAndDisplayCart(token);
+        location.reload();
     })
     .catch(error => console.error("Error decreasing item quantity:", error));
 }
@@ -171,7 +154,7 @@ function removeItemFromCart(itemId, token) {
     fetch(`https://food-delivery.int.kreosoft.space/api/basket/dish/${itemId}?increase=false`, requestOptions)
     .then(response => {
         if (!response.ok) throw new Error(`Network response was not ok, status: ${response.status}`);
-        fetchAndDisplayCart(token);
+        location.reload();
     })
     .catch(error => console.error("Error removing item from cart:", error));
 }
@@ -228,6 +211,15 @@ function createOrder(token, event) {
     const deliveryAddress = document.getElementById('deliveryAddress').value;
     const deliveryTime = document.getElementById('deliveryTime').value;
 
+    // Validate delivery time
+    const currentTime = new Date();
+    const selectedTime = new Date(deliveryTime);
+
+    if (selectedTime <= currentTime || selectedTime.getTime() < currentTime.getTime() + 3600000) {
+        alert('Delivery time must be at least one hour from the current time.');
+        return;
+    }
+
     const requestOptions = {
         method: 'POST',
         headers: {
@@ -244,25 +236,8 @@ function createOrder(token, event) {
     .then(response => {
         if (!response.ok) throw new Error(`Network response was not ok, status: ${response.status}`);
         alert('Order created successfully!');
-        clearCart(token);
         closeModal();
+        location.reload();
     })
     .catch(error => console.error("Error creating order:", error));
-}
-
-function clearCart(token) {
-    const requestOptions = {
-        method: 'DELETE',  // Changed to DELETE to clear the cart properly
-        headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
-        },
-    };
-
-    fetch(`https://food-delivery.int.kreosoft.space/api/basket`, requestOptions)
-    .then(response => {
-        if (!response.ok) throw new Error(`Network response was not ok, status: ${response.status}`);
-        fetchAndDisplayCart(token);
-    })
-    .catch(error => console.error("Error clearing cart:", error));
 }

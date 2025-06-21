@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dish Details</title>
+    <link rel="stylesheet" href="../css/dish-details.css"> <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Anta&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/boxicons/2.0.7/css/boxicons.min.css">
+</head>
+<body>
+    <header class="header">
+        <a class="UnderLogo" href="/index.html">
+            <h1 class="logo">Savor Haven</h1>
+        </a>
+        <div class="btn">
+            <div class="icons">
+                <div class="profileIcon">
+                    <a class="UnderProfile" href="/html/profile.html">
+                        <i class='bx bx-user' id="profileIcon" style="display:none;"></i>
+                    </a>
+                </div>
+                <div class="orderIcon" id="orderIcon" style="display: none;">
+                    <a class="UnderOrder" href="/html/order.html">
+                        <p2>Orders</p2>
+                    </a>
+                </div>
+                <div class="cartIcon" id="cartIcon" style="display: none;">
+                    <a class="UnderCart" href="/html/cart.html">
+                        <p2>Cart</p2>
+                    </a>
+                </div>
+            </div>
+            <a href="/html/login.html">
+                <button id="authButton" class="btnLogin" role="btnLogin">
+                    <span class="text">LOG IN / SIGN UP</span>
+                </button>
+            </a>
+        </div>
+    </header>
+    <div class="navbar"></div>
+    <div id="dishDetailsContainer" class="dish-details-container"></div>
+    <script src="../javascript/dish-details.js"></script>
+    <script src="../javascript/logout.js"></script>
+</body>
+</html>

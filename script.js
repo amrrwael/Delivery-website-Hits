@@ -283,85 +283,98 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function openRatingPopup(dishId) {
-    // Display the rating popup modal here
+    // Display the rating popup modal
     const ratingPopup = document.getElementById('ratingPopup');
     ratingPopup.style.display = 'block';
     
-    
     let ratingValue = 0;
-
-    // Get star elements and add event listeners
-    
     const stars = document.querySelectorAll('.hh');
-    stars.forEach((star, index) => {
+    const STAR_STATES = {
+        FULL: `<i class='bx bxs-star' style='color: gold;'></i>`,
+        HALF: `<i class='bx bxs-star-half' style='color: gold;'></i>`,
+        EMPTY: `<i class='bx bx-star' style='color: black;'></i>`
+    };
 
-        let hv = 0;
-
-        star.addEventListener('click', function () {
-            ratingValue = parseFloat(this.getAttribute('data-rating'));
-            ratingValue = hv;
-        });
-
-
-
-        // Add hover effect
-        star.addEventListener('mousemove', function (event) {
-            const hoverValue = parseFloat(this.getAttribute('data-rating'));
-            const rect = star.getBoundingClientRect();
-            const percent = (event.clientX - rect.left) / rect.width;
-            if (percent >= 0.5) {
-                star.innerHTML = `<i class='bx bxs-star' style='color: gold;'></i>`;
-                hv = hoverValue;
-            }
-
-            else {
-                star.innerHTML= `<i class='bx bxs-star-half' style='color: gold;'></i>`;
-                hv = hoverValue - .5;
-            }
-
-            if (percent <= 0) {
-                star.innerHTML = `<i class='bx bx-star' style='color: black;'></i>`;
-            }
-
-            for (let i = 0; i < index; i++) {
-                stars[i].innerHTML = `<i class='bx bxs-star' style='color: gold;'></i>`;
-            }
-
-            for (let i = index+1; i < stars.length; i++) {
-                stars[i].innerHTML = `<i class='bx bx-star' style='color: black;'></i>`;
-            }
-        });
-
+    // Helper function to update a single star's display
+    function updateStarDisplay(star, percent) {
+        const hoverValue = parseFloat(star.getAttribute('data-rating'));
         
-        star.addEventListener('mouseleave', function () {
-            
-            for (let i = 0; i < ratingValue; i++) {
-                stars[i].HTML =`<i class='bx bxs-star-half' style='color: gold;'></i>`;
-                if (!Number.isInteger(ratingValue)) stars[Math.floor(ratingValue)].innerHTML = innerHTML= `<i class='bx bxs-star-half' style='color: gold;'></i>`;
+        let starHtml;
+        if (percent <= 0) {
+            starHtml = STAR_STATES.EMPTY;
+        } else if (percent < 0.5) {
+            starHtml = STAR_STATES.HALF;
+        } else {
+            starHtml = STAR_STATES.FULL;
+        }
+        
+        star.innerHTML = starHtml;
+        return percent >= 0.5 ? hoverValue : hoverValue - 0.5;
+    }
+
+    // Handle star hover interactions
+    function handleStarHover(event) {
+        const star = event.currentTarget;
+        const rect = star.getBoundingClientRect();
+        const percent = (event.clientX - rect.left) / rect.width;
+        
+        const hoverValue = updateStarDisplay(star, percent);
+        
+        // Update previous stars to full
+        const currentIndex = Array.from(stars).indexOf(star);
+        stars.forEach((s, index) => {
+            if (index < currentIndex) {
+                s.innerHTML = STAR_STATES.FULL;
+            } else if (index > currentIndex) {
+                s.innerHTML = STAR_STATES.EMPTY;
             }
-            for (let i = Math.ceil(ratingValue); i < stars.length; i++) {
-                stars[i].innerHTML = `<i class='bx bx-star' style='color: black;'></i>`;
+        });
+        
+        return hoverValue;
+    }
+
+    // Reset stars to their default state
+    function resetStars() {
+        stars.forEach((star, index) => {
+            if (index < Math.floor(ratingValue)) {
+                star.innerHTML = STAR_STATES.FULL;
+            } else if (index === Math.floor(ratingValue) && !Number.isInteger(ratingValue)) {
+                star.innerHTML = STAR_STATES.HALF;
+            } else {
+                star.innerHTML = STAR_STATES.EMPTY;
             }
+        });
+    }
+
+    // Set up event listeners for each star
+    stars.forEach(star => {
+        star.addEventListener('mousemove', handleStarHover);
+        
+        star.addEventListener('mouseleave', () => {
+            resetStars();
+        });
+
+        star.addEventListener('click', () => {
+            ratingValue = parseFloat(star.getAttribute('data-rating'));
         });
     });
 
-    
-    
-
-    
+    // Close popup functionality
     const closeRatingPopupButton = document.getElementById('closeRatingPopup');
-    closeRatingPopupButton.addEventListener('click', function () {
+    closeRatingPopupButton.addEventListener('click', () => {
         ratingPopup.style.display = 'none';
     });
 
-    
+    // Submit rating functionality
     const submitButton = document.getElementById('submitRating');
-    submitButton.addEventListener('click', function () {
-        // Handle rating submission here
-        submitRating(dishId, ratingValue)
+    submitButton.addEventListener('click', () => {
+        submitRating(dishId, ratingValue);
         ratingPopup.style.display = 'none';
     });
-    }
+
+    // Initialize stars to empty state
+    resetStars();
+}
 
     
     function submitRating(dishId, ratingValue) {

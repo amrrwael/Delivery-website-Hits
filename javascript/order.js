@@ -35,73 +35,88 @@ document.addEventListener('DOMContentLoaded', function () {
         console.error('Error fetching orders:', error);
     });
 
+// Refactored displayOrders: just loops through and calls small helpers
     function displayOrders(orders) {
         orders.forEach(order => {
-            const orderElement = document.createElement('div');
-            orderElement.classList.add('order');
-    
-            const orderInfo = document.createElement('div');
-            orderInfo.classList.add('order-info');
-    
-            const orderDetails = document.createElement('div');
-            orderDetails.classList.add('order-details');
-    
-            const orderId = document.createElement('span');
-            orderId.classList.add('order-id');
-            orderId.textContent = `Order ID: ${order.id}`;
-            orderId.setAttribute('data-order-id', order.id);
-    
-            orderId.addEventListener('click', () => {
-                fetchOrderDetails(order.id, token);
-            });
-    
-            const orderStatus = document.createElement('span');
-            orderStatus.classList.add('order-status');
-            orderStatus.innerHTML = `Status: <strong>${order.status}</strong>`;
-    
-            const deliveryTime = document.createElement('span');
-            deliveryTime.classList.add('order-deliveryTime');
-            deliveryTime.innerHTML = `Delivery Time: <strong>${order.deliveryTime}</strong>`;
-    
-            const orderTime = document.createElement('span');
-            orderTime.classList.add('order-orderTime');
-            orderTime.innerHTML = `Order Time: <strong>${order.orderTime}</strong>`;
-    
-            const confirmButtonWrapper = document.createElement('div'); // Wrapper div for Confirm Order button
-            confirmButtonWrapper.classList.add('confirm-btn-wrapper'); 
-    
-            const confirmButton = document.createElement('button');
-            confirmButton.textContent = 'Confirm Order';
-            confirmButton.classList.add('confirm-order-btn');
-    
-            confirmButtonWrapper.appendChild(confirmButton); // Append the button to the wrapper
-    
-            const orderPrice = document.createElement('span');
-            orderPrice.classList.add('order-price');
-            orderPrice.textContent = `Price: ${order.price} EGP`;
-    
-            orderDetails.appendChild(orderId);
-            orderDetails.appendChild(orderStatus);
-            orderDetails.appendChild(deliveryTime);
-            orderDetails.appendChild(orderTime);
-    
-            orderInfo.appendChild(orderDetails);
-    
-            orderElement.appendChild(orderInfo);
-            orderElement.appendChild(orderPrice);
-            orderElement.appendChild(confirmButtonWrapper); // Append the wrapper to the order element
-    
-            confirmButton.addEventListener('click', () => {
-                confirmOrder(order.id, token);
-            });
-    
+            const orderElement = createOrderElement(order, token);
             ordersList.appendChild(orderElement);
-    
-            // Remove confirm button if order status is "Delivered"
-            if (order.status === 'Delivered') {
-                confirmButton.remove();
-            }
         });
+    }
+
+    // Builds full order card
+    function createOrderElement(order, token) {
+        const orderElement = document.createElement('div');
+        orderElement.classList.add('order');
+
+        const orderInfo = createOrderDetails(order, token);
+        const orderPrice = document.createElement('span');
+        orderPrice.classList.add('order-price');
+        orderPrice.textContent = `Price: ${order.price} EGP`;
+
+        const confirmButtonWrapper = createConfirmButton(order, token);
+
+        orderElement.appendChild(orderInfo);
+        orderElement.appendChild(orderPrice);
+        orderElement.appendChild(confirmButtonWrapper);
+
+        return orderElement;
+    }
+
+    // Builds order info part
+    function createOrderDetails(order, token) {
+        const orderInfo = document.createElement('div');
+        orderInfo.classList.add('order-info');
+
+        const orderDetails = document.createElement('div');
+        orderDetails.classList.add('order-details');
+
+        const orderId = document.createElement('span');
+        orderId.classList.add('order-id');
+        orderId.textContent = `Order ID: ${order.id}`;
+        orderId.setAttribute('data-order-id', order.id);
+        orderId.addEventListener('click', () => {
+            fetchOrderDetails(order.id, token);
+        });
+
+        const orderStatus = document.createElement('span');
+        orderStatus.classList.add('order-status');
+        orderStatus.innerHTML = `Status: <strong>${order.status}</strong>`;
+
+        const deliveryTime = document.createElement('span');
+        deliveryTime.classList.add('order-deliveryTime');
+        deliveryTime.innerHTML = `Delivery Time: <strong>${order.deliveryTime}</strong>`;
+
+        const orderTime = document.createElement('span');
+        orderTime.classList.add('order-orderTime');
+        orderTime.innerHTML = `Order Time: <strong>${order.orderTime}</strong>`;
+
+        orderDetails.appendChild(orderId);
+        orderDetails.appendChild(orderStatus);
+        orderDetails.appendChild(deliveryTime);
+        orderDetails.appendChild(orderTime);
+
+        orderInfo.appendChild(orderDetails);
+        return orderInfo;
+    }
+
+    // Builds confirm button (if needed)
+    function createConfirmButton(order, token) {
+        const wrapper = document.createElement('div');
+        wrapper.classList.add('confirm-btn-wrapper');
+
+        if (order.status === 'Delivered') {
+            return wrapper;
+        }
+
+        const button = document.createElement('button');
+        button.textContent = 'Confirm Order';
+        button.classList.add('confirm-order-btn');
+        button.addEventListener('click', () => {
+            confirmOrder(order.id, token);
+        });
+
+        wrapper.appendChild(button);
+        return wrapper;
     }
     
     function fetchOrderDetails(orderId, token) {

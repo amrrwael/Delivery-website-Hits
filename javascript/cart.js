@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const token = header();
-    
+    const token = header();  // Assume header() handles UI + token check
     fetchAndDisplayCart(token);
 
     document.getElementById('checkoutBtn').addEventListener('click', openOrderModal);
@@ -8,38 +7,16 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('orderForm').addEventListener('submit', function (event) {
         createOrder(token, event);
     });
-    document.getElementById('goToMenuBtn').addEventListener('click', function() {
+    document.getElementById('goToMenuBtn').addEventListener('click', function () {
         window.location.href = '/index.html';
     });
 
-    // Fetch the address when the page loads
-    fetchAddress();
-
-    function fetchAddress() {
-        fetch(`https://food-delivery.int.kreosoft.space/api/account/profile`, {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok ' + response.statusText);
-            }
-            return response.json();
-        })
-        .then(data => {
-            // Assuming the address is in a field named 'address'
-            const address = data.address;
-            // Set the input field value
-            const addressInput = document.getElementById('deliveryAddress');
-            addressInput.value = address;
-        })
-        .catch(error => {
-            console.error('There has been a problem with your fetch operation:', error);
-        });
-    }
+    fetchAddress(token);
 });
 
+/////////////////////////////////////////////////////
+// CART SERVICE (data fetching / updates)
+/////////////////////////////////////////////////////
 function fetchAndDisplayCart(token) {
     const requestOptions = {
         method: 'GET',
@@ -51,47 +28,16 @@ function fetchAndDisplayCart(token) {
     };
 
     fetch(`https://food-delivery.int.kreosoft.space/api/basket`, requestOptions)
-    .then(response => response.ok ? response.json() : Promise.reject(`Error: ${response.status}`))
-    .then(data => {
-        console.log("DATAAAA", data)
-        if (data.length === 0) {
-            document.getElementById('emptyCartMessage').style.display = 'block';
-        } else {
-            document.getElementById('emptyCartMessage').style.display = 'none';
-            displayCartItems(data, token);
-        }
-    })
-    .catch(error => console.error("Error fetching or displaying cart data:", error));
-}
-
-function displayCartItems(data, token) {
-    const cartContainer = document.getElementById("cartItems");
-    cartContainer.innerHTML = ''; // Clear existing items
-    let totalPrice = 0;
-
-    data.forEach(item => {
-        const cartItemElement = document.createElement("div");
-        cartItemElement.classList.add("cart-item");
-        cartItemElement.innerHTML = `
-            <img src="${item.image}" alt="${item.name}" class="cart-item-image">
-            <div class="cart-item-details">
-                <h2 class="cart-item-name">${item.name}</h2>
-                <p class="cart-item-price">${item.price} EGP</p>
-                <div class="quantity-control">
-                    <button onclick="decreaseItemQuantity('${item.id}', '${token}')" class="quantity-dec">-</button>
-                    <span id="quantity-${item.id}" class="cart-item-amount">Quantity: ${item.amount}</span>
-                    <button onclick="increaseItemQuantity('${item.id}', '${token}')" class="quantity-inc">+</button>
-                </div>
-                <p class="cart-item-total-price">Total: ${item.totalPrice} EGP</p>
-                <button onclick="removeItemFromCart('${item.id}', '${token}')" class="cart-item-remove">Remove</button>
-            </div>
-        `;
-        totalPrice += item.totalPrice;
-        cartContainer.appendChild(cartItemElement);
-    });
-
-    const totalPriceDiv = document.getElementById("cart-total-price");
-    totalPriceDiv.innerText = `Total: ${totalPrice} EGP`;
+        .then(response => response.ok ? response.json() : Promise.reject(`Error: ${response.status}`))
+        .then(data => {
+            if (data.length === 0) {
+                document.getElementById('emptyCartMessage').style.display = 'block';
+            } else {
+                document.getElementById('emptyCartMessage').style.display = 'none';
+                displayCartItems(data, token);
+            }
+        })
+        .catch(error => console.error("Error fetching or displaying cart data:", error));
 }
 
 function increaseItemQuantity(itemId, token) {
@@ -104,11 +50,11 @@ function increaseItemQuantity(itemId, token) {
     };
 
     fetch(`https://food-delivery.int.kreosoft.space/api/basket/dish/${itemId}`, requestOptions)
-    .then(response => {
-        if (!response.ok) throw new Error(`Network response was not ok, status: ${response.status}`);
-        fetchAndDisplayCart(token);
-    })
-    .catch(error => console.error("Error increasing item quantity:", error));
+        .then(response => {
+            if (!response.ok) throw new Error(`Network response was not ok, status: ${response.status}`);
+            fetchAndDisplayCart(token);
+        })
+        .catch(error => console.error("Error increasing item quantity:", error));
 }
 
 function decreaseItemQuantity(itemId, token) {
@@ -121,11 +67,11 @@ function decreaseItemQuantity(itemId, token) {
     };
 
     fetch(`https://food-delivery.int.kreosoft.space/api/basket/dish/${itemId}?increase=true`, requestOptions)
-    .then(response => {
-        if (!response.ok) throw new Error(`Network response was not ok, status: ${response.status}`);
-        location.reload();
-    })
-    .catch(error => console.error("Error decreasing item quantity:", error));
+        .then(response => {
+            if (!response.ok) throw new Error(`Network response was not ok, status: ${response.status}`);
+            location.reload();
+        })
+        .catch(error => console.error("Error decreasing item quantity:", error));
 }
 
 function removeItemFromCart(itemId, token) {
@@ -138,11 +84,43 @@ function removeItemFromCart(itemId, token) {
     };
 
     fetch(`https://food-delivery.int.kreosoft.space/api/basket/dish/${itemId}?increase=false`, requestOptions)
-    .then(response => {
-        if (!response.ok) throw new Error(`Network response was not ok, status: ${response.status}`);
-        location.reload();
-    })
-    .catch(error => console.error("Error removing item from cart:", error));
+        .then(response => {
+            if (!response.ok) throw new Error(`Network response was not ok, status: ${response.status}`);
+            location.reload();
+        })
+        .catch(error => console.error("Error removing item from cart:", error));
+}
+
+/////////////////////////////////////////////////////
+// UI LAYER (display / modal / DOM)
+/////////////////////////////////////////////////////
+function displayCartItems(data, token) {
+    const cartContainer = document.getElementById("cartItems");
+    cartContainer.innerHTML = '';
+    let totalPrice = 0;
+
+    data.forEach(item => {
+        const cartItemElement = document.createElement("div");
+        cartItemElement.classList.add("cart-item");
+        cartItemElement.innerHTML = `
+            <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+            <div class="cart-item-details">
+                <h2 class="cart-item-name">${item.name}</h2>
+                <p class="cart-item-price">${item.price} EGP</p>
+                <div class="quantity-control">
+                    <button onclick="increaseItemQuantity('${item.id}', '${token}')" class="quantity-inc">+</button>
+                    <span id="quantity-${item.id}" class="cart-item-amount">Quantity: ${item.amount}</span>
+                    <button onclick="decreaseItemQuantity('${item.id}', '${token}')" class="quantity-dec">-</button>
+                </div>
+                <p class="cart-item-total-price">Total: ${item.totalPrice} EGP</p>
+                <button onclick="removeItemFromCart('${item.id}', '${token}')" class="cart-item-remove">Remove</button>
+            </div>
+        `;
+        totalPrice += item.totalPrice;
+        cartContainer.appendChild(cartItemElement);
+    });
+
+    document.getElementById("cart-total-price").innerText = `Total: ${totalPrice} EGP`;
 }
 
 function openOrderModal() {
@@ -178,8 +156,7 @@ function openOrderModal() {
         `;
     });
 
-    const orderDetails = document.getElementById('orderDetails');
-    orderDetails.innerHTML = `
+    document.getElementById('orderDetails').innerHTML = `
         <div>Cart Items:</div>
         <div>${modalCartItemsHtml}</div>
         <div class="popTotalPrice">Total Price: ${totalPrice}</div>
@@ -187,17 +164,18 @@ function openOrderModal() {
 }
 
 function closeModal() {
-    const modal = document.getElementById('orderModal');
-    modal.style.display = 'none';
+    document.getElementById('orderModal').style.display = 'none';
 }
 
+/////////////////////////////////////////////////////
+// ORDER SERVICE (business logic)
+/////////////////////////////////////////////////////
 function createOrder(token, event) {
     event.preventDefault();
 
     const deliveryAddress = document.getElementById('deliveryAddress').value;
     const deliveryTime = document.getElementById('deliveryTime').value;
 
-    // Validate delivery time
     const currentTime = new Date();
     const selectedTime = new Date(deliveryTime);
 
@@ -219,11 +197,34 @@ function createOrder(token, event) {
     };
 
     fetch(`https://food-delivery.int.kreosoft.space/api/order`, requestOptions)
-    .then(response => {
-        if (!response.ok) throw new Error(`Network response was not ok, status: ${response.status}`);
-        alert('Order created successfully!');
-        closeModal();
-        location.reload();
+        .then(response => {
+            if (!response.ok) throw new Error(`Network response was not ok, status: ${response.status}`);
+            alert('Order created successfully!');
+            closeModal();
+            location.reload();
+        })
+        .catch(error => console.error("Error creating order:", error));
+}
+
+/////////////////////////////////////////////////////
+// PROFILE FETCH (for address)
+/////////////////////////////////////////////////////
+function fetchAddress(token) {
+    fetch(`https://food-delivery.int.kreosoft.space/api/account/profile`, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
     })
-    .catch(error => console.error("Error creating order:", error));
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => {
+            document.getElementById('deliveryAddress').value = data.address;
+        })
+        .catch(error => {
+            console.error('There has been a problem with your fetch operation:', error);
+        });
 }

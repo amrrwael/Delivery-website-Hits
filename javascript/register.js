@@ -1,71 +1,75 @@
-function solve() {
-    var fullName = document.getElementById('name').value;
-    var password = document.getElementById('password').value;
-    var address = document.getElementById('address').value;
-    var birthDate = document.getElementById('dob').value;
-	var gender = document.getElementById('gender').value;
-    var phoneNumber = document.getElementById('mobile').value;
-    var email = document.getElementById('email').value;
+class User {
+  constructor(data) {
+    this.fullName = data.name;
+    this.password = data.password;
+    this.email = data.email;
+    this.address = data.address;
+    this.birthDate = data.dob;
+    this.gender = data.gender;
+    this.phoneNumber = data.mobile;
+  }
 
-    let flag = 1;
-    let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  static fromForm() {
+    return new User({
+      name: document.getElementById('name').value,
+      password: document.getElementById('password').value,
+      email: document.getElementById('email').value,
+      address: document.getElementById('address').value,
+      dob: document.getElementById('dob').value,
+      gender: document.getElementById('gender').value,
+      mobile: document.getElementById('mobile').value
+    });
+  }
 
-    if (!emailRegex.test(email)) {
-		flag = 0;
-		document.getElementById('emailError').innerText = 'Please enter a valid email address.';
-		setTimeout(() => {
-			document.getElementById('emailError').innerText = "";
-		}, 3000);
-	}
-
-
-	let passwordRegex = /^(?=.*\d)\S{6,}$/;
-	if (!passwordRegex.test(password)) {
-		flag = 0;
-		document.getElementById('passwordError').innerText = 'Password must be at least 6 characters long and include at least one number.';
-		setTimeout(() => {
-			document.getElementById('passwordError').innerText = "";
-		}, 3000);
-	}
-
-
-    if (flag) {
-        alert("Form submitted");
+  validate() {
+    let isValid = true;
+    
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(this.email)) {
+      this.showError('emailError', 'Invalid email');
+      isValid = false;
     }
 
-    var formData = {
-        fullName: fullName,
-        password: password,
-        email: email,
-        address: address,
-        birthDate: birthDate,
-        gender: gender,
-        phoneNumber: phoneNumber
-    };
+    // Password validation
+    const passwordRegex = /^(?=.*\d)\S{6,}$/;
+    if (!passwordRegex.test(this.password)) {
+      this.showError('passwordError', 'Password must be 6+ chars with a number');
+      isValid = false;
+    }
 
-    fetch(`https://food-delivery.int.kreosoft.space/api/account/register`, {
+    return isValid;
+  }
+
+  showError(elementId, message) {
+    const element = document.getElementById(elementId);
+    element.innerText = message;
+    setTimeout(() => element.innerText = "", 3000);
+  }
+
+  async register() {
+    try {
+      const response = await fetch(`https://food-delivery.int.kreosoft.space/api/account/register`, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData)
-    })
-    .then(response => {
-        if (response.ok) { 
-            console.log('registeration successful');
-           window.location.href = '/'
-        } else {
-            console.log('registeration failed:'); 
-        }
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(this)
+      });
 
-       return response.json();
-   })  
-   .then(data => {
-       console.log(data)
-   })
-   .catch(error => {
-       
-       console.error('Error:', error);
-   });
+      if (response.ok) {
+        window.location.href = '/';
+      } else {
+        console.error('Registration failed:', await response.json());
+      }
+    } catch (error) {
+      console.error('API Error:', error);
+    }
+  }
+}
 
+// Usage
+function solve() {
+  const user = User.fromForm();
+  if (user.validate()) {
+    user.register();
+  }
 }

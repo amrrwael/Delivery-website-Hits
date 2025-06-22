@@ -1,21 +1,8 @@
+
 document.addEventListener('DOMContentLoaded', function () {
-    const ordersList = document.getElementById('ordersList');
-    let logOutBtn = document.getElementById('logOutBtn');
-    let profileIcon = document.getElementById('profileIcon');
-    let orderIcon = document.getElementById('orderIcon');
-    let cartIcon = document.getElementById('cartIcon');
-    const token = localStorage.getItem('token');
-
-    logOutBtn.style.display = 'inline';
-    orderIcon.style.display = 'inline';
-    profileIcon.style.display = 'inline';
-    cartIcon.style.display = 'inline';
-    
-    if(!token){
-        window.location.href = '../index.html'
-    }
-
-
+const token = header();
+        // Now you can use the token for other operations
+        console.log(token);
     // Fetch orders with authentication token
     fetch('https://food-delivery.int.kreosoft.space/api/order', {
         headers: {

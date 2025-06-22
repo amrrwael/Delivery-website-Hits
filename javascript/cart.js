@@ -1,19 +1,5 @@
-document.addEventListener("DOMContentLoaded", function() {
-    let logOutBtn = document.getElementById('logOutBtn');
-    let profileIcon = document.getElementById('profileIcon');
-    let orderIcon = document.getElementById('orderIcon');
-    let cartIcon = document.getElementById('cartIcon');
-    const token = localStorage.getItem('token');
-
-    logOutBtn.style.display = 'inline';
-    orderIcon.style.display = 'inline';
-    profileIcon.style.display = 'inline';
-    cartIcon.style.display = 'inline';
-    
-    if(!token){
-        window.location.href = '../index.html'
-    }
-            
+document.addEventListener('DOMContentLoaded', function () {
+    const token = header();
     
     fetchAndDisplayCart(token);
 

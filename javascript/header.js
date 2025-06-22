@@ -1,10 +1,9 @@
 function header() {
     const token = localStorage.getItem('token');
     
-    // Check token first before doing anything with DOM
     if (!token) {
         window.location.href = '../index.html';
-        return null; // Exit early
+        return null;
     }
 
     // Wait for DOM to be ready before accessing elements

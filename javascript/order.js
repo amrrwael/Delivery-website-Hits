@@ -120,111 +120,122 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     
     function fetchOrderDetails(orderId, token) {
-        const requestOptions = {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        };
-    
-        fetch(`https://food-delivery.int.kreosoft.space/api/order/${orderId}`, requestOptions)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to fetch order details');
-            }
-            return response.json();
-        })
-        .then(order => {
-            // After successfully fetching order details, display them in a modal
-            const modal = document.getElementById('orderModal');
-            const modalContent = modal.querySelector('.modal-content');
-            const orderDetailsDiv = modalContent.querySelector('#orderDetails');
-            const confirmButton = modalContent.querySelector('#confirmOrderBtn');
-    
-            // Clear previous order details
-            orderDetailsDiv.innerHTML = '';
-    
-            // Display order details
-            const orderHeader = document.createElement('h3');
-            orderHeader.textContent = `Order ID: ${order.id}`;
-            orderDetailsDiv.appendChild(orderHeader);
-    
-            // Display additional details
-            const additionalDetails = document.createElement('div');
-            additionalDetails.classList.add('additional-details');
-            additionalDetails.innerHTML = `
-                <p>Delivery Time: <strong>${order.deliveryTime}</strong></p>
-                <p>Order Time: <strong>${order.orderTime}</strong></p>
-                <p class="order-status">Status: <strong>${order.status}</strong></p> <!-- Wrap status in <strong> tags -->
-            `;
-            orderDetailsDiv.appendChild(additionalDetails);
-    
-            // Iterate over dishes
-            order.dishes.forEach(dish => {
-                const dishContainer = document.createElement('div');
-                dishContainer.classList.add('dish-container');
-    
-                const dishImage = document.createElement('img');
-                dishImage.src = dish.image;
-                dishImage.alt = dish.name;
-                dishImage.classList.add('dish-image');
-                dishContainer.appendChild(dishImage);
-    
-                const dishInfo = document.createElement('div');
-                dishInfo.classList.add('dish-info');
-    
-                const dishName = document.createElement('p');
-                dishName.textContent = `${dish.name}`;
-                dishName.classList.add('dish-name');
-                dishInfo.appendChild(dishName);
-    
-                const dishPrice = document.createElement('p');
-                dishPrice.innerHTML = `Price: <strong>${dish.price}</strong> EGP/Dish`;
-                dishPrice.classList.add('dish-price');
-                dishInfo.appendChild(dishPrice);
-    
-                const dishAmount = document.createElement('p');
-                dishAmount.textContent = `Amount: ${dish.amount}`;
-                dishAmount.classList.add('dish-amount');
-                dishInfo.appendChild(dishAmount);
+    const requestOptions = {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    };
 
-                const dishTotalPrice = document.createElement('p');
-                dishTotalPrice.textContent = `Price: ${dish.totalPrice}`;
-                dishTotalPrice.classList.add('dish-totalPrice');
-                dishInfo.appendChild(dishTotalPrice);
-    
-                dishContainer.appendChild(dishInfo);
-                orderDetailsDiv.appendChild(dishContainer);
-            });
-    
-            // Display total price
-            const totalPrice = document.createElement('p');
-            totalPrice.textContent = `Total Price: ${order.price} EGP`;
-            totalPrice.classList.add('total-price');
-            orderDetailsDiv.appendChild(totalPrice);
-    
-            // Show modal
-            modal.style.display = 'block';
-    
-            // Close modal when close button is clicked
-            const closeButton = modalContent.querySelector('.close');
-            closeButton.addEventListener('click', () => {
-                modal.style.display = 'none';
-            });
-    
-            // Hide confirm button if order status is "Delivered"
-            if (order.status === 'Delivered') {
-                confirmButton.style.display = 'none';
-            } else {
-                confirmButton.style.display = 'block';
-                confirmButton.addEventListener('click', () => {
-                    confirmOrder(order.id, token);
-                });
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching order details:', error);
+    fetch(`https://food-delivery.int.kreosoft.space/api/order/${orderId}`, requestOptions)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to fetch order details');
+        }
+        return response.json();
+    })
+    .then(order => {
+        const modal = document.getElementById('orderModal');
+        const modalContent = modal.querySelector('.modal-content');
+        const orderDetailsDiv = modalContent.querySelector('#orderDetails');
+        const confirmButton = modalContent.querySelector('#confirmOrderBtn');
+
+        // Clear previous details
+        orderDetailsDiv.innerHTML = '';
+
+        // Build and append new content
+        buildModalContent(order, orderDetailsDiv);
+
+        // Setup modal event listeners
+        setupModalEvents(modal, modalContent, confirmButton, order, token);
+
+        // Show modal
+        modal.style.display = 'block';
+    })
+    .catch(error => {
+        console.error('Error fetching order details:', error);
+    });
+}
+
+// Build the modal's inner content
+function buildModalContent(order, container) {
+    const header = document.createElement('h3');
+    header.textContent = `Order ID: ${order.id}`;
+    container.appendChild(header);
+
+    const details = document.createElement('div');
+    details.classList.add('additional-details');
+    details.innerHTML = `
+        <p>Delivery Time: <strong>${order.deliveryTime}</strong></p>
+        <p>Order Time: <strong>${order.orderTime}</strong></p>
+        <p class="order-status">Status: <strong>${order.status}</strong></p>
+    `;
+    container.appendChild(details);
+
+    order.dishes.forEach(dish => {
+        const dishElement = buildDishElement(dish);
+        container.appendChild(dishElement);
+    });
+
+    const total = document.createElement('p');
+    total.textContent = `Total Price: ${order.price} EGP`;
+    total.classList.add('total-price');
+    container.appendChild(total);
+}
+
+// Build a dish element for the modal
+function buildDishElement(dish) {
+    const dishContainer = document.createElement('div');
+    dishContainer.classList.add('dish-container');
+
+    const image = document.createElement('img');
+    image.src = dish.image;
+    image.alt = dish.name;
+    image.classList.add('dish-image');
+    dishContainer.appendChild(image);
+
+    const info = document.createElement('div');
+    info.classList.add('dish-info');
+
+    const name = document.createElement('p');
+    name.textContent = dish.name;
+    name.classList.add('dish-name');
+    info.appendChild(name);
+
+    const price = document.createElement('p');
+    price.innerHTML = `Price: <strong>${dish.price}</strong> EGP/Dish`;
+    price.classList.add('dish-price');
+    info.appendChild(price);
+
+    const amount = document.createElement('p');
+    amount.textContent = `Amount: ${dish.amount}`;
+    amount.classList.add('dish-amount');
+    info.appendChild(amount);
+
+    const total = document.createElement('p');
+    total.textContent = `Price: ${dish.totalPrice}`;
+    total.classList.add('dish-totalPrice');
+    info.appendChild(total);
+
+    dishContainer.appendChild(info);
+    return dishContainer;
+}
+
+// Handle modal-related events
+function setupModalEvents(modal, modalContent, confirmButton, order, token) {
+    const closeButton = modalContent.querySelector('.close');
+    closeButton.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+
+    if (order.status === 'Delivered') {
+        confirmButton.style.display = 'none';
+    } else {
+        confirmButton.style.display = 'block';
+        confirmButton.addEventListener('click', () => {
+            confirmOrder(order.id, token);
         });
     }
+}
     
     
 

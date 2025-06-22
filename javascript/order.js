@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Fetch orders with authentication token
     fetch('https://food-delivery.int.kreosoft.space/api/order', {
         headers: {
-            'Authorization': `Bearer ${token}`
+            ...getAuthHeaders(token)
         }
     })
     .then(response => {
@@ -35,6 +35,11 @@ document.addEventListener('DOMContentLoaded', function () {
         console.error('Error fetching orders:', error);
     });
 
+    function getAuthHeaders(token) {
+    return {
+        'Authorization': `Bearer ${token}`
+    };
+}
 // Refactored displayOrders: just loops through and calls small helpers
     function displayOrders(orders) {
         orders.forEach(order => {
@@ -122,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function fetchOrderDetails(orderId, token) {
     const requestOptions = {
         headers: {
-            'Authorization': `Bearer ${token}`
+            ...getAuthHeaders(token)
         }
     };
 
@@ -243,7 +248,7 @@ function setupModalEvents(modal, modalContent, confirmButton, order, token) {
         const requestOptions = {
             method: 'POST' ,
             headers: {
-                'Authorization': `Bearer ${token}`,
+                ...getAuthHeaders(token),
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },

@@ -1,9 +1,5 @@
-
 document.addEventListener('DOMContentLoaded', function () {
-const token = header();
-        // Now you can use the token for other operations
-        console.log(token);
-    // Fetch orders with authentication token
+    const token = header();
     fetch('https://food-delivery.int.kreosoft.space/api/order', {
         headers: {
             ...getAuthHeaders(token)
